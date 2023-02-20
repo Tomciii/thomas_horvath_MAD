@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BizCardAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    CreateBizCard()
+                    BizCard()
                 }
             }
         }
@@ -41,8 +41,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CreateBizCard() {
-    val buttonClickedState = remember {
+fun BizCard() {
+    val showProjects = remember {
         mutableStateOf(false)
     }
 
@@ -59,15 +59,15 @@ fun CreateBizCard() {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally) {
 
-                CreateImageProfile()
+                ProfileImage()
 
                 Divider()
 
-                CreateInfo()
+                ProfileInfo()
 
                 Button(
                     onClick = {
-                        buttonClickedState.value = !buttonClickedState.value
+                        showProjects.value = !showProjects.value
                     }
                 ) {
                     Text("Portfolio",
@@ -75,8 +75,8 @@ fun CreateBizCard() {
 
                 }
 
-                if (buttonClickedState.value) {
-                    ProjectContent()
+                if (showProjects.value) {
+                    ProjectContents()
                 }else {
                     Box {}
                 }
@@ -86,7 +86,7 @@ fun CreateBizCard() {
 }
 
 @Composable
-fun ProjectContent() {
+fun ProjectContents() {
     Surface(modifier = Modifier
         .padding(5.dp)
         .fillMaxWidth()
@@ -95,7 +95,7 @@ fun ProjectContent() {
         border = BorderStroke(width = 2.dp,
             color = Color.LightGray)
     ) {
-        Portfolio(data = listOf("Project 1",
+        Portfolio(projects = listOf("Project 1",
             "Project 2",
             "Project 3",
             "Project 4",
@@ -105,9 +105,9 @@ fun ProjectContent() {
 }
 
 @Composable
-fun Portfolio(data: List<String>) {
+fun Portfolio(projects: List<String>) {
     LazyColumn{
-        items(data) { item ->
+        items(projects) { project ->
             Card(modifier = Modifier
                 .padding(13.dp)
                 .fillMaxWidth(),
@@ -119,13 +119,13 @@ fun Portfolio(data: List<String>) {
                     .background(MaterialTheme.colors.surface)
                     .padding(7.dp)) {
 
-                    CreateImageProfile(modifier = Modifier.size(100.dp))
+                    ProfileImage(modifier = Modifier.size(100.dp))
 
                     Column( modifier = Modifier
                         .padding(7.dp)
                         .align(alignment = Alignment.CenterVertically)) {
 
-                        Text(text = item, fontWeight = FontWeight.Bold)
+                        Text(text = project, fontWeight = FontWeight.Bold)
                         Text(text = "A great Project",
                             style = MaterialTheme.typography.body2)
                     }
@@ -136,7 +136,7 @@ fun Portfolio(data: List<String>) {
 }
 
 @Composable
-private fun CreateInfo() {
+private fun ProfileInfo() {
     Column(modifier = Modifier.padding(5.dp)) {
         Text(text = "Fuma Kotaro", style = MaterialTheme.typography.h4, color = MaterialTheme.colors.primaryVariant)
         Text(text = "Android Compose Programmer", modifier = Modifier.padding(3.dp))
@@ -145,7 +145,7 @@ private fun CreateInfo() {
 }
 
 @Composable
-private fun CreateImageProfile(modifier: Modifier = Modifier) {
+private fun ProfileImage(modifier: Modifier = Modifier) {
     Surface(modifier = modifier
         .size(150.dp)
         .padding(5.dp),
@@ -167,6 +167,6 @@ private fun CreateImageProfile(modifier: Modifier = Modifier) {
 @Composable
 fun DefaultPreview() {
     BizCardAppTheme {
-        CreateBizCard()
+        BizCard()
     }
 }
