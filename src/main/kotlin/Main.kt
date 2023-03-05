@@ -30,9 +30,9 @@ fun isValidInput(input: List<Int>) : Boolean {
     return input == null || input.size != 4 || input.toSet().size != 4
 }
 
-fun countDigitMatches(number: List<Int>, guess: List<Int>): Int {
+fun countDigitMatches(number: List<Int>, userInput: List<Int>): Int {
     var result = 0
-    for (digit in guess) {
+    for (digit in userInput) {
         if (digit in number) {
             result++
         }
@@ -40,10 +40,10 @@ fun countDigitMatches(number: List<Int>, guess: List<Int>): Int {
     return result
 }
 
-fun countDigitPositionMatches(number: List<Int>, guess: List<Int>): Int {
+fun countDigitPositionMatches(number: List<Int>, userInput: List<Int>): Int {
     var result = 0
     for (i in number.indices) {
-        if (guess[i] == number[i]) {
+        if (userInput[i] == number[i]) {
             result++
         }
     }
