@@ -16,28 +16,28 @@ fun generateRandomNumber(): List<Int> {
 fun getInput(): List<Int?>? {
 
     print("Enter a 4 digit number: ")
-    val guess = readLine()?.trim()?.toList()?.map { input -> input.toString().toIntOrNull() }
+    val userInput = readLine()?.trim()?.toList()?.map { input -> input.toString().toIntOrNull() }
 
-    if (isValidInput(guess as List<Int>)) {
+    if (isValidInput(userInput as List<Int>)) {
         println("Invalid input!")
         return null
     }
 
-    return guess
+    return userInput
 }
 
-fun isValidInput(guess: List<Int>) : Boolean {
-    return guess == null || guess.size != 4 || guess.toSet().size != 4
+fun isValidInput(input: List<Int>) : Boolean {
+    return input == null || input.size != 4 || input.toSet().size != 4
 }
 
-fun calculateScore(number: List<Int>, guess: List<Int>): List<Int> {
+fun calculateScore(number: List<Int>, input: List<Int>): List<Int> {
     var n = 0 // amount of digits correctly guessed from the number
     var m = 0 // amount of digits correctly guessed from the number and in the correct position
 
     for (i in 0 until number.size) {
-        if (guess[i] == number[i]) {
+        if (input[i] == number[i]) {
             m++
-        } else if (guess[i] in number) {
+        } else if (input[i] in number) {
             n++
         }
     }
@@ -51,13 +51,13 @@ fun playPuzzle() {
     println("Generated the number")
 
     while (true) {
-        val guess = getInput()
+        val input = getInput()
 
-        if (guess == null) {
+        if (input == null) {
             continue
         }
 
-        val (n, m) = calculateScore(number, guess as List<Int>)
+        val (n, m) = calculateScore(number, input as List<Int>)
 
         println("$n:$m")
 
