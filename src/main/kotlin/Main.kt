@@ -34,13 +34,14 @@ fun calculateScore(number: List<Int>, guess: List<Int>): List<Int> {
     var n = 0 // amount of digits correctly guessed from the number
     var m = 0 // amount of digits correctly guessed from the number and in the correct position
 
-    for ((i, digit) in guess.withIndex()) {
-        if (digit == number[i]) {
+    for (i in 0 until number.size) {
+        if (guess[i] == number[i]) {
             m++
-        } else if (digit in number) {
+        } else if (guess[i] in number) {
             n++
         }
     }
+
     return listOf(n, m)
 }
 
