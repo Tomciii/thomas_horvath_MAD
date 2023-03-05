@@ -1,5 +1,5 @@
 fun main() {
-    playGame()
+    playPuzzle()
 }
 
 fun generateRandomNumber(): List<Int> {
@@ -37,7 +37,7 @@ fun calculateScore(number: List<Int>, guess: List<Int>): List<Int> {
     return listOf(n, m)
 }
 
-fun playGame() {
+fun playPuzzle() {
     println("Starting puzzle game!")
     val number = generateRandomNumber()
     println("Generated the number")
