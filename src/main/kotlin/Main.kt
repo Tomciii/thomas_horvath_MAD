@@ -31,13 +31,13 @@ fun isValidInput(input: List<Int>) : Boolean {
 }
 
 fun countDigitMatches(number: List<Int>, guess: List<Int>): Int {
-    var count = 0
+    var result = 0
     for (digit in guess) {
         if (digit in number) {
-            count++
+            result++
         }
     }
-    return count
+    return result
 }
 
 fun countDigitPositionMatches(number: List<Int>, guess: List<Int>): Int {
