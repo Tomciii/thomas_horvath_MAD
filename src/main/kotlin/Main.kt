@@ -2,7 +2,7 @@ fun main() {
     playPuzzle()
 }
 
-fun generateRandomNumber(): List<Int> {
+fun generateRandomFourDigitNumber(): List<Int> {
     val result = mutableListOf<Int>()
     while (result.size < 4) {
         val digit = (0..9).random()
@@ -13,7 +13,7 @@ fun generateRandomNumber(): List<Int> {
     return result
 }
 
-fun getInput(): List<Int?>? {
+fun getUserInput(): List<Int?>? {
 
     print("Enter a 4 digit number: ")
     val userInput = readLine()?.trim()?.toList()?.map { input -> input.toString().toIntOrNull() }
@@ -47,11 +47,11 @@ fun calculateScore(number: List<Int>, input: List<Int>): List<Int> {
 
 fun playPuzzle() {
     println("Starting puzzle game!")
-    val number = generateRandomNumber()
+    val number = generateRandomFourDigitNumber()
     println("Generated the number")
 
     while (true) {
-        val input = getInput()
+        val input = getUserInput()
 
         if (input == null) {
             continue
