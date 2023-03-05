@@ -62,6 +62,7 @@ fun playPuzzle() {
 
         if (m == 4) {
             println("You guessed correctly!")
+            println("Ending puzzle")
             break
         }
     }
