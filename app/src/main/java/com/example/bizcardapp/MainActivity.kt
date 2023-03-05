@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bizcardapp.models.Project
 import com.example.bizcardapp.ui.theme.BizCardAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -70,7 +71,7 @@ fun BizCard() {
                         showProjects.value = !showProjects.value
                     }
                 ) {
-                    Text("Portfolio",
+                    Text("Show Portfolio",
                         style = MaterialTheme.typography.button)
 
                 }
@@ -95,17 +96,13 @@ fun ProjectContents() {
         border = BorderStroke(width = 2.dp,
             color = Color.LightGray)
     ) {
-        Portfolio(projects = listOf("Project 1",
-            "Project 2",
-            "Project 3",
-            "Project 4",
-            "Project 5"))
+        Portfolio(projects = listOf(Project("Project1","Coool"),Project("Project2","Nice"),))
     }
 
 }
 
 @Composable
-fun Portfolio(projects: List<String>) {
+fun Portfolio(projects: List<Project>){
     LazyColumn{
         items(projects) { project ->
             Card(modifier = Modifier
@@ -125,8 +122,8 @@ fun Portfolio(projects: List<String>) {
                         .padding(7.dp)
                         .align(alignment = Alignment.CenterVertically)) {
 
-                        Text(text = project, fontWeight = FontWeight.Bold)
-                        Text(text = "A great Project",
+                        Text(text = project.name, fontWeight = FontWeight.Bold)
+                        Text(text = project.description,
                             style = MaterialTheme.typography.body2)
                     }
                 }
@@ -137,11 +134,10 @@ fun Portfolio(projects: List<String>) {
 
 @Composable
 private fun ProfileInfo() {
-    Column(modifier = Modifier.padding(5.dp)) {
-        Text(text = "Fuma Kotaro", style = MaterialTheme.typography.h4, color = MaterialTheme.colors.primaryVariant)
-        Text(text = "Android Compose Programmer", modifier = Modifier.padding(3.dp))
-        Text(text = "@nightNinja", modifier = Modifier.padding(3.dp), style = MaterialTheme.typography.subtitle1)
-    }
+    Column(modifier = Modifier.padding(5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "Fuma Kotaro", style = MaterialTheme.typography.h3, color = Color.Red)
+        Text(text = "Android Compose Programmer @nightNinja", modifier = Modifier.padding(3.dp))
+      }
 }
 
 @Composable
@@ -154,7 +150,7 @@ private fun ProfileImage(modifier: Modifier = Modifier) {
         elevation = 4.dp,
         color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)) {
 
-        Image(painter = painterResource(id = R.drawable.profile_pic),
+        Image(painter = painterResource(id = R.drawable.robot),
             contentDescription = "profile image",
             modifier = modifier.size(135.dp),
             contentScale = ContentScale.Crop)
