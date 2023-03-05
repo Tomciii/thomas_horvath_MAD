@@ -30,19 +30,24 @@ fun isValidInput(input: List<Int>) : Boolean {
     return input == null || input.size != 4 || input.toSet().size != 4
 }
 
-fun calculateScore(number: List<Int>, input: List<Int>): List<Int> {
-    var n = 0 // amount of digits correctly guessed from the number
-    var m = 0 // amount of digits correctly guessed from the number and in the correct position
-
-    for (i in 0 until number.size) {
-        if (input[i] == number[i]) {
-            m++
-        } else if (input[i] in number) {
-            n++
+fun countDigitMatches(number: List<Int>, guess: List<Int>): Int {
+    var count = 0
+    for (digit in guess) {
+        if (digit in number) {
+            count++
         }
     }
+    return count
+}
 
-    return listOf(n, m)
+fun countDigitPositionMatches(number: List<Int>, guess: List<Int>): Int {
+    var result = 0
+    for (i in number.indices) {
+        if (guess[i] == number[i]) {
+            result++
+        }
+    }
+    return result
 }
 
 fun playPuzzle() {
@@ -57,7 +62,8 @@ fun playPuzzle() {
             continue
         }
 
-        val (n, m) = calculateScore(number, input as List<Int>)
+        val n = countDigitMatches(number, input as List<Int>)
+        val m = countDigitPositionMatches(number, input)
 
         println("$n:$m")
 
