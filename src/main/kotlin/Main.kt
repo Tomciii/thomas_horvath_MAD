@@ -17,16 +17,23 @@ fun getInput(): List<Int?>? {
 
     print("Enter a 4 digit number: ")
     val guess = readLine()?.trim()?.toList()?.map { input -> input.toString().toIntOrNull() }
-    if (guess == null || guess.size != 4 || guess.toSet().size != 4) {
+
+    if (isValidInput(guess as List<Int>)) {
         println("Invalid input!")
         return null
     }
+
     return guess
 }
 
+fun isValidInput(guess: List<Int>) : Boolean {
+    return guess == null || guess.size != 4 || guess.toSet().size != 4
+}
+
 fun calculateScore(number: List<Int>, guess: List<Int>): List<Int> {
-    var n = 0
-    var m = 0
+    var n = 0 // amount of digits correctly guessed from the number
+    var m = 0 // amount of digits correctly guessed from the number and in the correct position
+
     for ((i, digit) in guess.withIndex()) {
         if (digit == number[i]) {
             m++
@@ -48,6 +55,7 @@ fun playPuzzle() {
         if (guess == null) {
             continue
         }
+
         val (n, m) = calculateScore(number, guess as List<Int>)
 
         println("$n:$m")
