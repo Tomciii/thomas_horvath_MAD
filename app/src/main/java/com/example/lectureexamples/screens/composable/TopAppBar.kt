@@ -45,7 +45,7 @@ fun TopAppBar(){
 fun DropDownItem() {
     Row(
         Modifier
-            .background(Purple200)
+            .background(Color.White)
             .fillMaxWidth()
             .height(58.dp)
             .padding(15.dp),

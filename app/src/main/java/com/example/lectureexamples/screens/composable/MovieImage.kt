@@ -16,7 +16,6 @@ fun MovieImage(movieImage: String){
         Image(
             painter = painter,
             contentDescription = "Movie Poster",
-            contentScale = ContentScale.Crop
-        )
+            contentScale = ContentScale.Crop)
     }
 }

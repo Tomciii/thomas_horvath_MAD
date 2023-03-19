@@ -7,8 +7,8 @@ import androidx.navigation.NavController
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
 
-    movieId?.let {
-        Text(text = "$movieId")
-    }
+   // movieId?.let {
+   //     Text(text = "$movieId")
+  //  }
 
 }
