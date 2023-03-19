@@ -10,6 +10,7 @@ import com.example.lectureexamples.models.getMovies
 @Composable
 fun MyList(navController: NavController, movies: List<Movie> = getMovies()){
 
+
     LazyColumn {
 
         items(movies) { movie ->
