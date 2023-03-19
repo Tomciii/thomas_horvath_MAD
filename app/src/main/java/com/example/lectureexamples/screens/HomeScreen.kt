@@ -21,7 +21,7 @@ fun HomeScreen(navController: NavController)  {
             ) {
                 Column {
 
-                  TopAppBar(navController)
+                  TopAppBar()
                     Text(
                         style = MaterialTheme.typography.h6,
                         text= "Movie List"
