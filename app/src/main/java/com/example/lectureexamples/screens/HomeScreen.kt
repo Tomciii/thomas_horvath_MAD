@@ -42,6 +42,9 @@ fun HomeScreen(navController: NavController)  {
                     )
                     MyList(navController)
                 }
+                //MyList()
+                //Greeting()
+                //WelcomeText(modifier = Modifier.padding(16.dp), text = "welcome to my app!")
             }
 
 
