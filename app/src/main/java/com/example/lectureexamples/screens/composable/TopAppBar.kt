@@ -6,6 +6,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
@@ -19,12 +20,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import com.example.lectureexamples.screens.Screen
 import com.example.lectureexamples.ui.theme.Purple200
 import com.example.lectureexamples.ui.theme.Purple500
 
 @Composable
-fun TopAppBar(){
+fun TopAppBar(screen:String, movieTitle:String = ""){
 
+    if(screen.equals(Screen.Home.route)){
+        HomeTopAppBar()
+    } else {
+        DetailTopAppBar(movieTitle)
+    }
+}
+
+@Composable
+fun HomeTopAppBar(){
     val isClicked = remember { mutableStateOf(false) }
 
     Card(
@@ -37,11 +48,41 @@ fun TopAppBar(){
                 DropDownItem()
             }
         }
+    } 
+}
+
+@Composable
+fun DetailTopAppBar(movieTitle: String){
+    val isClicked = remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Purple500)
+            .height(75.dp)
+            .padding(10.dp)
+        ,horizontalArrangement = Arrangement.SpaceBetween
+        ,verticalAlignment = Alignment.CenterVertically
+    ){
+
+        MyButton(isClicked = isClicked,
+            icon = {
+                Icon(
+                    tint = Color.White,
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Show favorites")
+            })
+
+        Text(movieTitle,
+            color = Color.White,
+            fontSize = 6.em,
+            fontWeight = FontWeight(650),
+            textAlign = TextAlign.Center)
     }
 }
 
 
-@Composable
+    @Composable
 fun DropDownItem() {
     Row(
         Modifier

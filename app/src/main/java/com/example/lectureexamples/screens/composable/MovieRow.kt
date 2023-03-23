@@ -22,9 +22,10 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
 
     Card(
         modifier = Modifier
+            .clickable{onItemClick(movie.id)}
             .fillMaxWidth()
             .padding(5.dp)
-            .clickable(onClick = {onItemClick}),
+            ,
         shape = RoundedCornerShape(corner = CornerSize(15.dp)),
         elevation = 5.dp
     ) {

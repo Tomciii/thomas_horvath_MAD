@@ -26,7 +26,7 @@ fun MyNavigation(){
         )
         {
             backStackEntry -> val movieId = backStackEntry.arguments?.getString(movieId).toString()
-            Log.d("Arg", movieId)
+
             DetailScreen( navController, movieId = movieId) }
     }
 }

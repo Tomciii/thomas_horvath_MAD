@@ -8,6 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.lectureexamples.models.Movie
+import com.example.lectureexamples.screens.composable.TopAppBar
 
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
@@ -17,7 +19,7 @@ fun DetailScreen(navController: NavController, movieId: String?) {
         color = MaterialTheme.colors.background
     ) {
         Column {
-            Text("Hello")
+            TopAppBar(Screen.Detail.route, movieTitle = "Asdf")
         }
     }
 

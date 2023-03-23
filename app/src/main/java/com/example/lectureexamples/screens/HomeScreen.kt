@@ -16,7 +16,7 @@ fun HomeScreen(navController: NavController)  {
                 color = MaterialTheme.colors.background
             ) {
                 Column {
-                  TopAppBar()
+                  TopAppBar(Screen.Home.route)
                   MyList(navController)
                 }
             }
