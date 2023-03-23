@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.lectureexamples.screens.DetailScreen
+import com.example.lectureexamples.screens.FavoritesScreen
 import com.example.lectureexamples.screens.HomeScreen
 import com.example.lectureexamples.screens.Screen
 
@@ -19,6 +20,10 @@ fun MyNavigation(){
     NavHost(navController = navController, startDestination = Screen.Home.route){
         composable(Screen.Home.route){
             HomeScreen(navController = navController)
+        }
+
+        composable(Screen.Favorites.route){
+            FavoritesScreen(navController = navController)
         }
 
         composable(route = Screen.Detail.route + "/{" + movieId + "}",

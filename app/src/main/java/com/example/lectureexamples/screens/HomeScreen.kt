@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.lectureexamples.screens.composable.MyList
-import com.example.lectureexamples.screens.composable.TopAppBar
+import com.example.lectureexamples.screens.composable.MyTopAppBar
 
 @Composable
 fun HomeScreen(navController: NavController)  {
@@ -16,7 +16,7 @@ fun HomeScreen(navController: NavController)  {
                 color = MaterialTheme.colors.background
             ) {
                 Column {
-                  TopAppBar(Screen.Home.route)
+                  MyTopAppBar(Screen.Home.route, "", navController)
                   MyList(navController)
                 }
             }

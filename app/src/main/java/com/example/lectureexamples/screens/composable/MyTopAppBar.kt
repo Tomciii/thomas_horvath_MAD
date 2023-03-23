@@ -20,17 +20,61 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import androidx.navigation.NavController
 import com.example.lectureexamples.screens.Screen
-import com.example.lectureexamples.ui.theme.Purple200
 import com.example.lectureexamples.ui.theme.Purple500
 
 @Composable
-fun TopAppBar(screen:String, movieTitle:String = ""){
+fun MyTopAppBar(screen:String, movieTitle:String = "", navController: NavController?){
 
     if(screen.equals(Screen.Home.route)){
         HomeTopAppBar()
-    } else {
-        DetailTopAppBar(movieTitle)
+    } else if(screen.equals(Screen.Favorites.route))
+        {
+        FavoritesTopAppBar(navController = navController)
+        }
+    else {
+        DetailTopAppBar(movieTitle, navController)
+    }
+}
+
+@Composable
+fun FavoritesTopAppBar(navController: NavController?){
+    val isClicked = remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Purple500)
+            .height(75.dp)
+            .padding(10.dp)
+        ,horizontalArrangement = Arrangement.SpaceBetween
+        ,verticalAlignment = Alignment.CenterVertically
+    ){
+
+        MyButton(isClicked = isClicked,
+            icon = {
+                Icon(
+                    tint = Color.White,
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Show favorites")
+            })
+
+        if (isClicked.value) {
+            if (navController != null) {
+                isClicked.value = !isClicked.value
+                navController.popBackStack()
+            }
+        }
+
+        Card(){
+            Text("Favorites",
+                color = Color.White,
+                fontSize = 6.em,
+                fontWeight = FontWeight(650),
+                textAlign = TextAlign.Center)
+        }
+
     }
 }
 
@@ -52,7 +96,7 @@ fun HomeTopAppBar(){
 }
 
 @Composable
-fun DetailTopAppBar(movieTitle: String){
+fun DetailTopAppBar(movieTitle: String, navController: NavController?){
     val isClicked = remember { mutableStateOf(false) }
 
     Row(
@@ -72,6 +116,13 @@ fun DetailTopAppBar(movieTitle: String){
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Show favorites")
             })
+
+        if (isClicked.value) {
+            if (navController != null) {
+                isClicked.value = !isClicked.value
+                navController.popBackStack()
+            }
+        }
 
         Text(movieTitle,
             color = Color.White,
