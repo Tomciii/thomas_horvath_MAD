@@ -8,9 +8,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.lectureexamples.screens.composable.MyList
+import com.example.lectureexamples.screens.composable.TopAppBar
 
 @Composable
-fun DetailScreen(navController: NavController, movieId: String?) {
+fun TestScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),

@@ -15,7 +15,7 @@ fun MyList(navController: NavController, movies: List<Movie> = getMovies()){
 
         items(movies) { movie ->
             MovieRow(movie = movie) { movieId ->
-                navController.navigate("detailSceen/$movieId")
+                navController.navigate(route = "testScreen")
             }
         }
     }
