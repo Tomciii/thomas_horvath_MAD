@@ -10,10 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.lectureexamples.models.Movie
 import com.example.lectureexamples.util.MovieImage
@@ -57,25 +55,6 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
         }
     }
 
-@Composable
-fun MovieAdditionalInformation(movie: Movie, isClicked: MutableState<Boolean>){
-    Column(modifier = Modifier.padding(17.dp)){
-
-    Text("Director: " + movie.director)
-    Text("Released: " + movie.year)
-    Text("Genre: " + movie.genre)
-    Text("Actors: " + movie.actors)
-    Box(
-        modifier = Modifier
-            .height(1.dp)
-            .fillMaxWidth()
-            .background(Color.Gray)
-
-    )
-    Text("Plot: " + movie.plot)
-    Text("Rating: " + movie.rating)
-    }
-}
     @Composable
     fun MovieName(movie: Movie){
         Row(
