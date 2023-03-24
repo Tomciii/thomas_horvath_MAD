@@ -1,6 +1,7 @@
 package com.example.lectureexamples.screens.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -27,14 +28,10 @@ import com.example.lectureexamples.ui.theme.Purple500
 @Composable
 fun MyTopAppBar(screen:String, movieTitle:String = "", navController: NavController?){
 
-    if(screen.equals(Screen.Home.route)){
-        HomeTopAppBar()
-    } else if(screen.equals(Screen.Favorites.route))
-        {
-        FavoritesTopAppBar(navController = navController)
-        }
-    else {
-        DetailTopAppBar(movieTitle, navController)
+    when(screen){
+        Screen.Home.route -> HomeTopAppBar(navController = navController)
+        Screen.Favorites.route -> FavoritesTopAppBar(navController = navController)
+        Screen.Detail.route -> DetailTopAppBar(movieTitle = movieTitle, navController = navController)
     }
 }
 
@@ -67,29 +64,27 @@ fun FavoritesTopAppBar(navController: NavController?){
             }
         }
 
-        Card(){
             Text("Favorites",
                 color = Color.White,
                 fontSize = 6.em,
                 fontWeight = FontWeight(650),
                 textAlign = TextAlign.Center)
-        }
 
     }
 }
 
 @Composable
-fun HomeTopAppBar(){
+fun HomeTopAppBar(navController: NavController?){
     val isClicked = remember { mutableStateOf(false) }
 
     Card(
     ) {
         Column(){
 
-            DropDownMenu(isClicked)
+            DropDownMenu(navController, isClicked)
 
             if (isClicked.value) {
-                DropDownItem()
+                DropDownItem(navController, isClicked)
             }
         }
     } 
@@ -134,8 +129,8 @@ fun DetailTopAppBar(movieTitle: String, navController: NavController?){
 
 
     @Composable
-fun DropDownItem() {
-    Row(
+fun DropDownItem(navController: NavController?, isClicked: MutableState<Boolean>) {
+        Row(
         Modifier
             .background(Color.White)
             .fillMaxWidth()
@@ -143,40 +138,50 @@ fun DropDownItem() {
             .padding(15.dp),
         horizontalArrangement = Arrangement.End
     ) {
-        Icon( tint = Color.Black,
-            imageVector = Icons.Default.Favorite,
-            contentDescription = "Show favorites")
-        Text("Favorites",
-            fontSize = 6.em,
-            color = Color.Black,
-            fontWeight = FontWeight(650),
-            textAlign = TextAlign.Right)
+        MyButton(onItemClick = {
+            isClicked.value = !isClicked.value
+            navController?.navigate(route = Screen.Favorites.route)
+        },
+            icon = { Icon( tint = Color.Black,
+                imageVector = Icons.Default.Favorite,
+                contentDescription = "Show favorites") }
+        ) {
+            Text(
+                "Favorites",
+                fontSize = 6.em,
+                color = Color.Black,
+                fontWeight = FontWeight(650),
+                textAlign = TextAlign.Right
+            )
+        }
     }
 }
 
     @Composable
-    fun DropDownMenu(isClicked: MutableState<Boolean>){
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Purple500)
-                .height(75.dp)
-                .padding(10.dp)
-            ,horizontalArrangement = Arrangement.SpaceBetween
-            ,verticalAlignment = Alignment.CenterVertically
-        ){
-            Text("Movies",
-                color = Color.White,
-                fontSize = 6.em,
-                fontWeight = FontWeight(650),
-                textAlign = TextAlign.Center)
+    fun DropDownMenu(navController: NavController?, isClicked: MutableState<Boolean>){
+        Card(modifier = Modifier.clickable { navController.to(Screen.Favorites.route) }){
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Purple500)
+                    .height(75.dp)
+                    .padding(10.dp)
+                ,horizontalArrangement = Arrangement.SpaceBetween
+                ,verticalAlignment = Alignment.CenterVertically
+            ){
+                Text("Movies",
+                    color = Color.White,
+                    fontSize = 6.em,
+                    fontWeight = FontWeight(650),
+                    textAlign = TextAlign.Center)
 
-            MyButton(isClicked = isClicked,
-                icon = {
-                    Icon(
-                        tint = Color.White,
-                        imageVector = Icons.Default.MoreVert,
-                        contentDescription = "Show favorites")
-                })
+                MyButton(isClicked = isClicked,
+                    icon = {
+                        Icon(
+                            tint = Color.White,
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "Show favorites")
+                    })
+            }
         }
     }

@@ -143,8 +143,6 @@ fun getMovies(): List<Movie> {
 
 fun getFavorites(): List<Movie> {
     return listOf(
-
-
         Movie(id = "tt0416449",
             title = "300",
             year = "2006",

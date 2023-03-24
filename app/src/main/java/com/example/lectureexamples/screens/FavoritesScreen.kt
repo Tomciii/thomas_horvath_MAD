@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.lectureexamples.models.getFavorites
-import com.example.lectureexamples.screens.composable.MyList
-import com.example.lectureexamples.screens.composable.MyTopAppBar
+import com.example.lectureexamples.screens.composable.FavoritesTopAppBar
+import com.example.lectureexamples.screens.composable.MovieList
 
 @Composable
 fun FavoritesScreen(navController: NavController){
@@ -18,8 +18,8 @@ fun FavoritesScreen(navController: NavController){
         color = MaterialTheme.colors.background
     ) {
         Column {
-            MyTopAppBar(Screen.Favorites.route, "", navController)
-            MyList(navController, getFavorites())
+            FavoritesTopAppBar(navController)
+            MovieList(navController, getFavorites())
         }
     }
 }
