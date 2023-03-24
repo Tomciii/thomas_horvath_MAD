@@ -8,11 +8,11 @@ import com.example.lectureexamples.composables.topAppBar.SimpleTopAppBar
 import com.example.lectureexamples.screens.Screen
 
 @Composable
-fun MyTopAppBar(screen:String, movieTitle:String = "", navController: NavController?){
+fun MyTopAppBar(screen:String, topAppBarText:String = "", navController: NavController?){
 
     when(screen){
         Screen.Home.route -> HomeTopAppBar(navController = navController)
         Screen.Favorites.route -> SimpleTopAppBar(topAppBarText = FAVORITES, navController = navController)
-        Screen.Detail.route -> SimpleTopAppBar(topAppBarText = movieTitle, navController = navController)
+        Screen.Detail.route -> SimpleTopAppBar(topAppBarText = topAppBarText, navController = navController)
     }
 }

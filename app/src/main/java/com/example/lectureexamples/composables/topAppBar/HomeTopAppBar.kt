@@ -32,17 +32,16 @@ fun HomeTopAppBar(navController: NavController?){
     Card(
     ) {
         Column(){
-
-            DropDownMenu(navController, isClicked)
+            TopAppBar(navController, isClicked)
 
             if (isClicked.value) {
-                DropDownItem(navController, isClicked)
+                DropDownMenuItem(navController, isClicked)
             }
         }
     }
 }
 @Composable
-fun DropDownItem(navController: NavController?, isClicked: MutableState<Boolean>) {
+fun DropDownMenuItem(navController: NavController?, isClicked: MutableState<Boolean>) {
     Row(
         Modifier
             .background(Color.White)
@@ -71,7 +70,7 @@ fun DropDownItem(navController: NavController?, isClicked: MutableState<Boolean>
 }
 
 @Composable
-fun DropDownMenu(navController: NavController?, isClicked: MutableState<Boolean>){
+fun TopAppBar(navController: NavController?, isClicked: MutableState<Boolean>){
     Card(modifier = Modifier.clickable { navController.to(Screen.Favorites.route) }){
         Row(
             modifier = Modifier

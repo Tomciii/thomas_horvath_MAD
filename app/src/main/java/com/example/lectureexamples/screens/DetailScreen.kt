@@ -30,7 +30,7 @@ fun DetailScreen(navController: NavController, movieId: String?) {
     ) {
         Column {
 
-            MyTopAppBar(Screen.Detail.route, movieTitle = movie.title, navController)
+            MyTopAppBar(Screen.Detail.route, topAppBarText = movie.title, navController)
             MovieRow(movie = movie, onItemClick = {})
             MovieAdditionalInformation(movie)
         }
