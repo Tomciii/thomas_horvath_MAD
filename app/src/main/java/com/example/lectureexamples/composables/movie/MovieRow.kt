@@ -1,6 +1,5 @@
-package com.example.lectureexamples.screens.composable
+package com.example.lectureexamples.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -14,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.lectureexamples.models.Movie
-import com.example.lectureexamples.util.MovieImage
+import com.example.lectureexamples.util.ImagePainter
 @Composable
 fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
 
@@ -22,8 +21,7 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
         modifier = Modifier
             .clickable{onItemClick(movie.id)}
             .fillMaxWidth()
-            .padding(5.dp)
-            ,
+            .padding(5.dp),
         shape = RoundedCornerShape(corner = CornerSize(15.dp)),
         elevation = 5.dp
     ) {
@@ -34,7 +32,7 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
                     .fillMaxWidth()
             ) {
 
-                MovieImage(movieImage = movie.images.get(0))
+                ImagePainter(movieImage = movie.images.get(0))
 
                 Box(
                     modifier = Modifier
@@ -49,7 +47,6 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
                     )
                 }
             }
-
             MovieName(movie)
             }
         }
@@ -67,6 +64,6 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowUp,
                     contentDescription = "Show details"
-                )
+        )
     }
 }

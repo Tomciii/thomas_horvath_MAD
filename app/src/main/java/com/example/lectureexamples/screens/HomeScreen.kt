@@ -5,8 +5,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.lectureexamples.screens.composable.MovieList
-import com.example.lectureexamples.screens.composable.MyTopAppBar
+import com.example.lectureexamples.composables.MovieList
+import com.example.lectureexamples.composables.MyTopAppBar
 
 @Composable
 fun HomeScreen(navController: NavController)  {

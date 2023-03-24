@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.lectureexamples.models.Movie
 import com.example.lectureexamples.models.getMovies
-import com.example.lectureexamples.screens.composable.MovieRow
-import com.example.lectureexamples.screens.composable.MyTopAppBar
-import com.example.lectureexamples.util.MovieImage
+import com.example.lectureexamples.composables.MovieRow
+import com.example.lectureexamples.composables.MyTopAppBar
+import com.example.lectureexamples.util.ImagePainter
 
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
@@ -34,7 +34,6 @@ fun DetailScreen(navController: NavController, movieId: String?) {
             MovieRow(movie = movie, onItemClick = {})
             MovieAdditionalInformation(movie)
         }
-
     }
 }
 @Composable
@@ -51,7 +50,7 @@ fun ImageRow(imageUrls: List<String>) {
                     .padding(horizontal = 8.dp)
                     .aspectRatio(1f)
             ) {
-                MovieImage(movieImage = imageUrl)
+                ImagePainter(movieImage = imageUrl)
             }
         }
     }

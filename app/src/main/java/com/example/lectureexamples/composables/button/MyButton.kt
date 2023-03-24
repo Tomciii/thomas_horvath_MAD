@@ -1,4 +1,4 @@
-package com.example.lectureexamples.screens.composable
+package com.example.lectureexamples.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
