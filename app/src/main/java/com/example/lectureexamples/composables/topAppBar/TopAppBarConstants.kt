@@ -1,8 +1,6 @@
 package com.example.lectureexamples.composables.topAppBar
 
-sealed class TopAppBarConstants(val value:String){
+const val FAVORITES = "Favorites"
+const val SHOW_FAVORITES ="Show Favorites"
+const val MOVIES ="Movies"
 
-    object FAVORITES : TopAppBarConstants("Favorites")
-    object SHOW_FAVORITES : TopAppBarConstants("Show Favorites")
-    object Movies : TopAppBarConstants("Movies")
-}

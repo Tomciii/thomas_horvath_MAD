@@ -17,7 +17,7 @@ import com.example.lectureexamples.models.Movie
 import com.example.lectureexamples.models.getMovies
 import com.example.lectureexamples.composables.MovieRow
 import com.example.lectureexamples.composables.MyTopAppBar
-import com.example.lectureexamples.util.ImagePainter
+import com.example.lectureexamples.util.ImagePainterUtil
 
 @Composable
 fun DetailScreen(navController: NavController, movieId: String?) {
@@ -50,7 +50,7 @@ fun ImageRow(imageUrls: List<String>) {
                     .padding(horizontal = 8.dp)
                     .aspectRatio(1f)
             ) {
-                ImagePainter(movieImage = imageUrl)
+                ImagePainterUtil(movieImage = imageUrl)
             }
         }
     }

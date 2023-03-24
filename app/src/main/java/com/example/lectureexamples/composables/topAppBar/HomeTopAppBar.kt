@@ -57,10 +57,10 @@ fun DropDownItem(navController: NavController?, isClicked: MutableState<Boolean>
         },
             icon = { Icon( tint = Color.Black,
                 imageVector = Icons.Default.Favorite,
-                contentDescription = TopAppBarConstants.SHOW_FAVORITES.value) }
+                contentDescription = SHOW_FAVORITES) }
         ) {
             Text(
-                TopAppBarConstants.FAVORITES.value,
+                FAVORITES,
                 fontSize = 6.em,
                 color = Color.Black,
                 fontWeight = FontWeight(650),
@@ -82,7 +82,8 @@ fun DropDownMenu(navController: NavController?, isClicked: MutableState<Boolean>
             ,horizontalArrangement = Arrangement.SpaceBetween
             ,verticalAlignment = Alignment.CenterVertically
         ){
-            Text(TopAppBarConstants.Movies.value,
+            Text(
+                MOVIES,
                 color = Color.White,
                 fontSize = 6.em,
                 fontWeight = FontWeight(650),
@@ -93,7 +94,7 @@ fun DropDownMenu(navController: NavController?, isClicked: MutableState<Boolean>
                     Icon(
                         tint = Color.White,
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = TopAppBarConstants.SHOW_FAVORITES.value)
+                        contentDescription = SHOW_FAVORITES)
                 })
         }
     }

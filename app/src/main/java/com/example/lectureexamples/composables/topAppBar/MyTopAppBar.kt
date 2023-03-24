@@ -2,6 +2,7 @@ package com.example.lectureexamples.composables
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.example.lectureexamples.composables.topAppBar.FAVORITES
 import com.example.lectureexamples.composables.topAppBar.HomeTopAppBar
 import com.example.lectureexamples.composables.topAppBar.SimpleTopAppBar
 import com.example.lectureexamples.screens.Screen
@@ -11,7 +12,7 @@ fun MyTopAppBar(screen:String, movieTitle:String = "", navController: NavControl
 
     when(screen){
         Screen.Home.route -> HomeTopAppBar(navController = navController)
-        Screen.Favorites.route -> SimpleTopAppBar(topAppBarText = "Favorites", navController = navController)
+        Screen.Favorites.route -> SimpleTopAppBar(topAppBarText = FAVORITES, navController = navController)
         Screen.Detail.route -> SimpleTopAppBar(topAppBarText = movieTitle, navController = navController)
     }
 }

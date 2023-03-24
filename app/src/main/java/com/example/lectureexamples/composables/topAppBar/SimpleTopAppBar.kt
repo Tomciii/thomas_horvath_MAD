@@ -39,7 +39,7 @@ fun SimpleTopAppBar(topAppBarText: String, navController: NavController?){
                 Icon(
                     tint = Color.White,
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = TopAppBarConstants.SHOW_FAVORITES.value)
+                    contentDescription = SHOW_FAVORITES)
             })
 
         if (isClicked.value) {

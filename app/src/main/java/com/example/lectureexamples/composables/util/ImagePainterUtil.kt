@@ -7,7 +7,7 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
 
 @Composable
-fun ImagePainter(movieImage: String){
+fun ImagePainterUtil(movieImage: String){
     Box(){
  val painter = rememberImagePainter(
             data = movieImage,

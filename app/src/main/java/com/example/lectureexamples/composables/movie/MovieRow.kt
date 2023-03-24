@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.lectureexamples.models.Movie
-import com.example.lectureexamples.util.ImagePainter
+import com.example.lectureexamples.util.ImagePainterUtil
 @Composable
 fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
 
@@ -32,7 +32,7 @@ fun MovieRow(movie: Movie, onItemClick: (String) -> Unit) {
                     .fillMaxWidth()
             ) {
 
-                ImagePainter(movieImage = movie.images.get(0))
+                ImagePainterUtil(movieImage = movie.images.get(0))
 
                 Box(
                     modifier = Modifier
