@@ -1,4 +1,4 @@
-package com.example.lectureexamples.ui.theme
+package com.example.movieappmad23.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -28,7 +28,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun LectureExamplesTheme(
+fun MovieAppMAD23Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
