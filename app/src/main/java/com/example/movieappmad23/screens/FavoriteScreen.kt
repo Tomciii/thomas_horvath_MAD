@@ -13,6 +13,7 @@ import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
+import kotlin.streams.toList
 
 @Composable
 fun FavoriteScreen(navController: NavController){
@@ -22,6 +23,9 @@ fun FavoriteScreen(navController: NavController){
         }
     }){ padding ->
         val movieList: List<Movie> = getMovies()
+            .stream()
+            .filter{ it.isFavorite }
+            .toList()
 
         Column(modifier = Modifier.padding(padding)) {
             LazyColumn {

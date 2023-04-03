@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -57,7 +58,7 @@ fun MovieRow(
                 contentAlignment = Alignment.Center
             ) {
                 MovieImage(imageUrl = movie.images[0])
-                FavoriteIcon()
+                FavoriteIcon(movie.isFavorite)
             }
 
             MovieDetails(modifier = Modifier.padding(12.dp), movie = movie)
@@ -83,17 +84,31 @@ fun MovieImage(imageUrl: String) {
 }
 
 @Composable
-fun FavoriteIcon() {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(10.dp),
-        contentAlignment = Alignment.TopEnd
-    ){
-        Icon(
-            tint = MaterialTheme.colors.secondary,
-            imageVector = Icons.Default.FavoriteBorder,
-            contentDescription = "Add to favorites")
+fun FavoriteIcon(isFavorite:Boolean) {
+
+    var favorited by remember {
+        mutableStateOf(isFavorite)
     }
+
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+            contentAlignment = Alignment.TopEnd,
+            ){
+
+            IconButton(
+                onClick = { favorited = !favorited }) {
+                Icon(imageVector =
+                if (favorited) Icons.Default.Favorite
+                else Icons.Default.FavoriteBorder,
+                    contentDescription = "Add or Remove to Favorites",
+                    modifier = Modifier
+                        .size(25.dp),
+                    tint = MaterialTheme.colors.secondary
+                )
+            }
+    }
+
 }
 
 
