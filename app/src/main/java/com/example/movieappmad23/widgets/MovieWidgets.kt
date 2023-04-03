@@ -33,6 +33,7 @@ import coil.request.ImageRequest
 import com.example.movieappmad23.R
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.models.moviesList
 import com.example.movieappmad23.ui.theme.Shapes
 
 @Preview
@@ -58,7 +59,7 @@ fun MovieRow(
                 contentAlignment = Alignment.Center
             ) {
                 MovieImage(imageUrl = movie.images[0])
-                FavoriteIcon(movie.isFavorite)
+                FavoriteIcon(movie.isFavorite, movie.id)
             }
 
             MovieDetails(modifier = Modifier.padding(12.dp), movie = movie)
@@ -79,12 +80,10 @@ fun MovieImage(imageUrl: String) {
             CircularProgressIndicator()
         }
     )
-
-
 }
 
 @Composable
-fun FavoriteIcon(isFavorite:Boolean) {
+fun FavoriteIcon(isFavorite:Boolean, id:String) {
 
     var favorited by remember {
         mutableStateOf(isFavorite)
@@ -97,7 +96,16 @@ fun FavoriteIcon(isFavorite:Boolean) {
             ){
 
             IconButton(
-                onClick = { favorited = !favorited }) {
+                onClick = { favorited = !favorited
+                          val updatedMovies = moviesList.map { movie ->
+                        if (movie.id == id) {
+                            movie.copy(isFavorite = !movie.isFavorite)
+                        } else {
+                            movie
+                        }
+                    }
+                    moviesList = updatedMovies
+                }) {
                 Icon(imageVector =
                 if (favorited) Icons.Default.Favorite
                 else Icons.Default.FavoriteBorder,
@@ -108,9 +116,7 @@ fun FavoriteIcon(isFavorite:Boolean) {
                 )
             }
     }
-
 }
-
 
 @Composable
 fun MovieDetails(modifier: Modifier = Modifier, movie: Movie) {
