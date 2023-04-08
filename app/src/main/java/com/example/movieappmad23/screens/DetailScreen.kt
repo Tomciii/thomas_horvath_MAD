@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.viewModels.MovieViewModel
 import com.example.movieappmad23.widgets.HorizontalScrollableImageView
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
@@ -19,7 +20,9 @@ fun filterMovie(movieId: String): Movie {
 @Composable
 fun DetailScreen(
     navController: NavController,
-    movieId:String?){
+    movieId:String?,
+    movieViewModel: MovieViewModel
+){
 
     movieId?.let {
         val movie = filterMovie(movieId = movieId)

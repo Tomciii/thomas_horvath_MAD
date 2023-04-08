@@ -23,10 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad23.R
 import com.example.movieappmad23.models.*
+import com.example.movieappmad23.viewModels.MovieViewModel
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 
 @Composable
-fun AddMovieScreen(navController: NavController){
+fun AddMovieScreen(navController: NavController, movieViewModel: MovieViewModel){
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
@@ -258,6 +259,19 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
             Button(
                 enabled = isEnabledSaveButton,
                 onClick = {
+
+                    val newMovie = Movie(
+                        title = title,
+                        year = year,
+                        genre = genres,
+                        director = director,
+                        plot = plot,
+                        rating = rating.toFloat(),
+                        actors = actors,
+                        id = title + year,
+                        images = listOf("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png")
+                    )
+
 
                     addNewMovieToList(
                         title = title,
