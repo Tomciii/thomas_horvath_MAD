@@ -1,6 +1,5 @@
 package com.example.movieappmad23.screens
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
@@ -8,23 +7,24 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.Text
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.material3.Button
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.MaterialTheme
 import androidx.navigation.NavController
 import com.example.movieappmad23.R
 import com.example.movieappmad23.models.*
 import com.example.movieappmad23.viewModels.MovieViewModel
 import com.example.movieappmad23.widgets.SimpleTopAppBar
+import java.util.*
 
 @Composable
 fun AddMovieScreen(navController: NavController, movieViewModel: MovieViewModel){
@@ -38,14 +38,13 @@ fun AddMovieScreen(navController: NavController, movieViewModel: MovieViewModel)
             }
         },
     ) { padding ->
-        MainContent(navController, Modifier.padding(padding))
+        MainContent(Modifier.padding(padding), movieViewModel = movieViewModel, navController)
     }
 }
 
-
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
+fun MainContent(modifier: Modifier = Modifier, movieViewModel: MovieViewModel, navController: NavController) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -64,16 +63,8 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 mutableStateOf("")
             }
 
-            var isValidTitle by remember {
-                mutableStateOf(false)
-            }
-
             var year by remember {
                 mutableStateOf("")
-            }
-
-            var isValidYear by remember {
-                mutableStateOf(false)
             }
 
             val genres = Genre.values().toList()
@@ -89,44 +80,20 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 )
             }
 
-            var genreListIsEmpty by remember {
-                mutableStateOf(genreItems.isEmpty())
-            }
-
             var director by remember {
                 mutableStateOf("")
-            }
-
-            var isValidDirector by remember {
-                mutableStateOf(false)
             }
 
             var actors by remember {
                 mutableStateOf("")
             }
 
-            var isValidActor by remember {
-                mutableStateOf(false)
-            }
-
             var plot by remember {
                 mutableStateOf("")
             }
 
-            var isValidPlot by remember {
-                mutableStateOf(false)
-            }
-
             var rating by remember {
                 mutableStateOf("")
-            }
-
-            var isValidRating by remember {
-                mutableStateOf(false)
-            }
-
-            var isEnabledSaveButton by remember {
-                mutableStateOf(false)
             }
 
             OutlinedTextField(
@@ -135,12 +102,11 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = {
                     title = it
-                    isValidTitle = !title.isBlank()
-                    isEnabledSaveButton = isValidTitle && isValidYear
+                    movieViewModel.validateTitle(title)
                 },
-                label = {Text(text = stringResource(R.string.enter_movie_title))},
-                isError = !isValidTitle,
-                supportingText = { RequiredText(requiredText = R.string.title_required, textFieldIsFilled = isValidTitle)}
+                label = { Text(text = stringResource(R.string.enter_movie_title)) },
+                isError = movieViewModel.titleError.value!!,
+                supportingText = { RequiredText(requiredText = R.string.title_required, textFieldIsFilled = title.isNotBlank()) }
             )
 
             OutlinedTextField(
@@ -149,25 +115,24 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = {
                     year = it
-                    isValidYear = !year.isBlank()
-                    isEnabledSaveButton = isValidTitle && isValidYear && isValidActor && isValidDirector && isValidPlot && isValidRating
+                    movieViewModel.validateYear(year)
                 },
                 label = { Text(stringResource(R.string.enter_movie_year)) },
-                isError = !isValidYear,
-                supportingText = { RequiredText(requiredText = R.string.year_required, textFieldIsFilled = isValidYear)}
+                isError = movieViewModel.yearError.value!!,
+                supportingText = { RequiredText(requiredText = R.string.year_required, textFieldIsFilled = year.isNotBlank()) }
             )
 
             Text(
                 modifier = Modifier.padding(top = 4.dp),
                 text = stringResource(R.string.select_genres),
                 textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.h6)
-
-            RequiredText(requiredText = R.string.genre_required, textFieldIsFilled = genreListIsEmpty)
+                style = MaterialTheme.typography.headlineSmall
+            )
 
             LazyHorizontalGrid(
                 modifier = Modifier.height(100.dp),
-                rows = GridCells.Fixed(3)){
+                rows = GridCells.Fixed(3)
+            ) {
                 items(genreItems) { genreItem ->
                     Chip(
                         modifier = Modifier.padding(2.dp),
@@ -185,8 +150,7 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                                     it
                                 }
                             }
-
-                            genreListIsEmpty = genreItems.isEmpty()
+                            movieViewModel.validateGenres(genreItems)
                         }
                     ) {
                         Text(text = genreItem.title)
@@ -200,12 +164,11 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = {
                     director = it
-                    isValidDirector = !director.isBlank()
-                    isEnabledSaveButton = isValidTitle && isValidYear && isValidActor && isValidDirector && isValidPlot && isValidRating
+                    movieViewModel.validateDirector(director)
                 },
                 label = { Text(stringResource(R.string.enter_director)) },
-                isError = !isValidDirector,
-                supportingText = { RequiredText(requiredText = R.string.director_required, textFieldIsFilled = isValidDirector)}
+                isError = movieViewModel.directorError.value!!,
+                supportingText = { RequiredText(requiredText = R.string.director_required, textFieldIsFilled = director.isNotBlank()) }
             )
 
             OutlinedTextField(
@@ -213,12 +176,11 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = {
                     actors = it
-                    isValidActor = !actors.isBlank()
-                    isEnabledSaveButton = isValidTitle && isValidYear && isValidActor && isValidDirector && isValidPlot && isValidRating
+                    movieViewModel.validateActors(actors)
                 },
                 label = { Text(stringResource(R.string.enter_actors)) },
-                isError = !isValidActor,
-                supportingText = { RequiredText(requiredText = R.string.actors_required, textFieldIsFilled = isValidActor)}
+                isError = movieViewModel.actorsError.value!!,
+                supportingText = { RequiredText(requiredText = R.string.actors_required, textFieldIsFilled = actors.isNotBlank()) }
             )
 
             OutlinedTextField(
@@ -227,14 +189,14 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp),
-                onValueChange = {
-                    plot = it
-                    isValidPlot = !plot.isBlank()
-                    isEnabledSaveButton = isValidTitle && isValidYear && isValidActor && isValidDirector && isValidPlot && isValidRating
+                onValueChange = { plot = it },
+                label = {
+                    Text(
+                        textAlign = TextAlign.Start,
+                        text = stringResource(R.string.enter_plot)
+                    )
                 },
-                label = { Text(textAlign = TextAlign.Start, text = stringResource(R.string.enter_plot)) },
-                isError = !isValidPlot,
-                supportingText = { RequiredText(requiredText = R.string.plot_required, textFieldIsFilled = isValidPlot)}
+                isError = false
             )
 
             OutlinedTextField(
@@ -242,50 +204,39 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = {
-                    rating = if(it.startsWith("0")) {
+                    rating = if (it.startsWith("0")) {
                         ""
                     } else {
                         it
                     }
 
-                    isValidRating = rating.toFloatOrNull() != null
-                    isEnabledSaveButton = isValidTitle && isValidYear && isValidActor && isValidDirector && isValidPlot && isValidRating
+                    if (rating.toFloatOrNull() != null)
+                        movieViewModel.validateRating(rating.toFloat())
                 },
                 label = { Text(stringResource(R.string.enter_rating)) },
-                isError = !isValidRating,
-                supportingText = { RequiredText(requiredText = R.string.rating_required, textFieldIsFilled = isValidRating)}
+                isError = movieViewModel.ratingError.value!!,
+                supportingText = { RequiredText(requiredText = R.string.rating_required, textFieldIsFilled = rating.isNotBlank()) }
             )
 
             Button(
-                enabled = isEnabledSaveButton,
+                enabled = movieViewModel.isAddButtonEnabled.value as Boolean,
                 onClick = {
-
-                    val newMovie = Movie(
-                        title = title,
-                        year = year,
-                        genre = genres,
-                        director = director,
-                        plot = plot,
-                        rating = rating.toFloat(),
-                        actors = actors,
-                        id = title + year,
-                        images = listOf("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png")
+                    val images =
+                        listOf("https://images-na.ssl-images-amazon.com/images/M/MV5BNzM2MDk3MTcyMV5BMl5BanBnXkFtZTcwNjg0MTUzNA@@._V1_SX1777_CR0,0,1777,999_AL_.jpg")
+                    val movie = Movie(
+                        UUID.randomUUID().toString(),
+                        title,
+                        year,
+                        genres,
+                        director,
+                        actors,
+                        plot,
+                        images,
+                        rating.toFloatOrNull() ?: 0F
                     )
-
-
-                    addNewMovieToList(
-                        title = title,
-                        year = year,
-                        genres = genres,
-                        director = director,
-                        plot = plot,
-                        rating = rating,
-                        actors = actors,
-                        navController = navController
-                    )
-
-                }) {
-                Text(text = stringResource(R.string.add))
+                    movieViewModel.addMovie(movie)
+                    navController.popBackStack()
+                }) { Text(text = stringResource(R.string.add))
             }
         }
     }
@@ -294,33 +245,6 @@ fun MainContent(navController: NavController, modifier: Modifier = Modifier) {
 @Composable
 fun RequiredText(requiredText:Int, textFieldIsFilled:Boolean){
     if(!textFieldIsFilled){
-        Text(text=stringResource(requiredText),color=Color.Red)
+        Text(text=stringResource(requiredText),color= Color.Red)
     }
-}
-
-private fun addNewMovieToList(
-    title: String,
-    year: String,
-    genres: List<Genre>,
-    director: String,
-    plot: String,
-    rating: String,
-    actors: String,
-    navController:NavController
-) {
-
-    val newMovie = Movie(
-        title = title,
-        year = year,
-        genre = genres,
-        director = director,
-        plot = plot,
-        rating = rating.toFloat(),
-        actors = actors,
-        id = title + year,
-        images = listOf("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png")
-    )
-
-    moviesList = moviesList + newMovie
-    navController.popBackStack()
 }
