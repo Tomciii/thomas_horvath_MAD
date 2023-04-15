@@ -61,7 +61,7 @@ fun MainContent(
 ) {
     val moviesState = remember { mutableStateOf(movieViewModel.movies) }
     val movies = getMovies()
-    
+
     MovieList(
         modifier = modifier,
         navController = navController,
