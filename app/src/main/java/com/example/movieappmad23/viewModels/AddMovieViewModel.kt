@@ -8,16 +8,12 @@ import com.example.movieappmad23.models.ListItemSelectable
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
 
-class MovieViewModel : ViewModel() {
+class AddMovieViewModel : ViewModel() {
     private val _movieList = getMovies().toMutableStateList()
     val movies: List<Movie>
-        get() = _movieList
+        get() = _movieList.toList()
 
-    private val _favorites = getMovies().filter { x -> x.isFavorite }.toMutableStateList()
-    val favorites: List<Movie>
-        get() = _favorites
-
-    private var _titleError = MutableLiveData<Boolean>(true)
+    private var _titleError = MutableLiveData(true)
     var titleError: LiveData<Boolean>
         get() = _titleError
         set(value) { _titleError.value = value.value }
@@ -26,7 +22,7 @@ class MovieViewModel : ViewModel() {
     val titleErrorMessage: LiveData<String>
         get() = _titleErrorMessage
 
-    private var _yearError = MutableLiveData<Boolean>(true)
+    private var _yearError = MutableLiveData(true)
     var yearError: LiveData<Boolean>
         get() = _yearError
         set(value) { _yearError.value = value.value }
@@ -35,7 +31,7 @@ class MovieViewModel : ViewModel() {
     val yearErrorMessage: LiveData<String>
         get() = _yearErrorMessage
 
-    private var _genreError = MutableLiveData<Boolean>(true)
+    private var _genreError = MutableLiveData(true)
     var genreError: LiveData<Boolean>
         get() = _genreError
         set(value) { _genreError.value = value.value }
@@ -44,7 +40,7 @@ class MovieViewModel : ViewModel() {
     val genreErrorMessage: LiveData<String>
         get() = _genreErrorMessage
 
-    private var _directorError = MutableLiveData<Boolean>(true)
+    private var _directorError = MutableLiveData(true)
     var directorError: LiveData<Boolean>
         get() = _directorError
         set(value) { _directorError.value = value.value }
@@ -53,7 +49,7 @@ class MovieViewModel : ViewModel() {
     val directorErrorMessage: LiveData<String>
         get() = _directorErrorMessage
 
-    private var _actorsError = MutableLiveData<Boolean>(true)
+    private var _actorsError = MutableLiveData(true)
     var actorsError: LiveData<Boolean>
         get() = _actorsError
         set(value) { _actorsError.value = value.value }
@@ -62,7 +58,7 @@ class MovieViewModel : ViewModel() {
     val actorsErrorMessage: LiveData<String>
         get() = _actorsErrorMessage
 
-    private var _ratingError = MutableLiveData<Boolean>(true)
+    private var _ratingError = MutableLiveData(true)
     var ratingError: LiveData<Boolean>
         get() = _ratingError
         set(value) { _ratingError.value = value.value }
@@ -71,7 +67,7 @@ class MovieViewModel : ViewModel() {
     val ratingErrorMessage: LiveData<String>
         get() = _ratingErrorMessage
 
-    private var _isAddButtonEnabled = MutableLiveData<Boolean>(false)
+    private var _isAddButtonEnabled = MutableLiveData(false)
     var isAddButtonEnabled: LiveData<Boolean>
         get() = _isAddButtonEnabled
         set(value) { _isAddButtonEnabled.value = value.value }
@@ -137,16 +133,7 @@ class MovieViewModel : ViewModel() {
     }
 
     private fun updateAddButtonState() {
-        // TODO: add genre check
         _isAddButtonEnabled.value = !(titleError.value == true || yearError.value == true || directorError.value == true || actorsError.value == true || ratingError.value == true)
-    }
-
-    fun markFavorite(movie: Movie) {
-        movie.isFavorite = !movie.isFavorite
-        if(movie.isFavorite)
-            _favorites.add(movie)
-        else if (_favorites.contains(movie))
-            _favorites.remove(movie)
     }
 
     fun addMovie(movie: Movie){

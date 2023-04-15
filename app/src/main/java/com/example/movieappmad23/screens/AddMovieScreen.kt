@@ -22,14 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.navigation.NavController
 import com.example.movieappmad23.R
 import com.example.movieappmad23.models.*
-import com.example.movieappmad23.viewModels.MovieViewModel
+import com.example.movieappmad23.viewModels.AddMovieViewModel
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 import java.util.*
 
 @Composable
-fun AddMovieScreen(navController: NavController, movieViewModel: MovieViewModel){
+fun AddMovieScreen(navController: NavController){
     val scaffoldState = rememberScaffoldState()
-
+    val movieViewModel = AddMovieViewModel()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -44,7 +44,7 @@ fun AddMovieScreen(navController: NavController, movieViewModel: MovieViewModel)
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun MainContent(modifier: Modifier = Modifier, movieViewModel: MovieViewModel, navController: NavController) {
+fun MainContent(modifier: Modifier = Modifier, movieViewModel: AddMovieViewModel, navController: NavController) {
     Surface(
         modifier = modifier
             .fillMaxWidth()

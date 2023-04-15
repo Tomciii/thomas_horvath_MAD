@@ -11,18 +11,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
-import com.example.movieappmad23.viewModels.MovieViewModel
+import com.example.movieappmad23.viewModels.AddMovieViewModel
 import com.example.movieappmad23.widgets.HomeTopAppBar
 import com.example.movieappmad23.widgets.MovieRow
 
 @Composable
-fun HomeScreen(navController: NavController = rememberNavController(), movieViewModel: MovieViewModel){
+fun HomeScreen(navController: NavController = rememberNavController()){
+    val movieViewModel = AddMovieViewModel()
     Scaffold(topBar = {
         HomeTopAppBar(
             title = "Home",
@@ -54,9 +57,11 @@ fun HomeScreen(navController: NavController = rememberNavController(), movieView
 fun MainContent(
     modifier: Modifier,
     navController: NavController,
-    movieViewModel: MovieViewModel
+    movieViewModel: AddMovieViewModel
 ) {
+    val moviesState = remember { mutableStateOf(movieViewModel.movies) }
     val movies = getMovies()
+    
     MovieList(
         modifier = modifier,
         navController = navController,
@@ -68,7 +73,7 @@ fun MainContent(
 fun MovieList(
     modifier: Modifier = Modifier,
     navController: NavController,
-    movies: List<Movie> = getMovies()
+    movies: List<Movie>
 ) {
     LazyColumn (
         modifier = modifier,
