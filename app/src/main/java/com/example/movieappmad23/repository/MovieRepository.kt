@@ -12,5 +12,7 @@ class MovieRepository(private val movieDao: MovieDao){
 
     fun getMovies() = movieDao.readAll()
 
+    fun getMovieById(id: Int) = movieDao.getMovieById(id)
+
     fun getFavoriteMovies() = movieDao.readFavoriteMovies()
 }

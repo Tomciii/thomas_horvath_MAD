@@ -5,10 +5,14 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.utils.InjectorUtils
+import com.example.movieappmad23.viewModels.DetailViewModel
 import com.example.movieappmad23.widgets.HorizontalScrollableImageView
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
@@ -21,6 +25,8 @@ fun DetailScreen(
     navController: NavController,
     movieId: String?
 ){
+    val viewModel: DetailViewModel = viewModel(factory = InjectorUtils.provideDetailViewModelFactory(
+        LocalContext.current))
 
     movieId?.let {
         val movie = filterMovie(movieId = movieId.toString())

@@ -10,4 +10,8 @@ class DetailViewModel(private val repository: MovieRepository) : ViewModel() {
     private val _movieList = getMovies().toMutableStateList()
     val movies: List<Movie>
         get() = _movieList
+
+    fun getMovieById(id: Int){
+        repository.getMovieById(id)
+    }
 }

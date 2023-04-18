@@ -18,6 +18,9 @@ interface MovieDao {
     @Query("SELECT * from movie")
     fun readAll(): Flow<List<Movie>>
 
+    @Query("SELECT * from movie where id=:movieId")
+    fun getMovieById(movieId: Int): Movie
+
     @Query("DELETE from movie")
     fun deleteAll()
    @Query("Select * from movie where isFavorite = 1")

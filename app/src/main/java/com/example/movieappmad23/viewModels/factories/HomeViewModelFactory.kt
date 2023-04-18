@@ -3,8 +3,6 @@ package com.example.movieappmad23.viewModels.factories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieappmad23.repository.MovieRepository
-import com.example.movieappmad23.viewModels.DetailViewModel
-import com.example.movieappmad23.viewModels.FavoriteViewModel
 import com.example.movieappmad23.viewModels.HomeViewModel
 
 class HomeViewModelFactory (private val repository: MovieRepository): ViewModelProvider.Factory{

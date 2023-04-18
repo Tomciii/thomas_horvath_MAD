@@ -8,16 +8,22 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
-import com.example.movieappmad23.viewModels.AddMovieViewModel
+import com.example.movieappmad23.utils.InjectorUtils
+import com.example.movieappmad23.viewModels.FavoriteViewModel
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 import kotlin.streams.toList
 
 @Composable
 fun FavoriteScreen(navController: NavController){
+
+    val viewModel: FavoriteViewModel = viewModel(factory = InjectorUtils.provideDetailViewModelFactory(
+        LocalContext.current))
 
     Scaffold(topBar = {
         SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {

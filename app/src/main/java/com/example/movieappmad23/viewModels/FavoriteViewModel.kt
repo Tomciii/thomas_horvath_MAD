@@ -12,6 +12,7 @@ class FavoriteViewModel(private val repository: MovieRepository) : ViewModel() {
     val favorites: List<Movie>
         get() = _favorites
 
+    fun getFavorites() = repository.getFavoriteMovies()
     fun markFavorite(movie: Movie) {
         movie.isFavorite = !movie.isFavorite
         if(movie.isFavorite)

@@ -149,11 +149,8 @@ class AddMovieViewModel(private val repository: MovieRepository) : ViewModel() {
     private fun updateAddButtonState() {
         _isAddButtonEnabled.value = !(titleError.value == true || yearError.value == true || directorError.value == true || actorsError.value == true || ratingError.value == true)
     }
-    fun addMovie(movie: Movie){
 
-    }
-
-    suspend fun addMovie(movie: Movie, repository: MovieRepository){
+    suspend fun addMovie(movie: Movie){
         repository.add(movie)
     }
 }

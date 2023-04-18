@@ -30,6 +30,7 @@ import com.example.movieappmad23.utils.InjectorUtils
 import com.example.movieappmad23.viewModels.AddMovieViewModel
 import com.example.movieappmad23.viewModels.factories.AddMovieViewModelFactory
 import com.example.movieappmad23.widgets.SimpleTopAppBar
+import kotlinx.coroutines.launch
 import java.util.*
 
 @Composable
@@ -37,9 +38,6 @@ fun AddMovieScreen(navController: NavController){
 
     val viewModel: AddMovieViewModel = viewModel(factory = InjectorUtils.provideAddMovieViewModelFactory(
         LocalContext.current))
-
-    val moviesState = viewModel.movies.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
 
     val scaffoldState = rememberScaffoldState()
 
@@ -64,6 +62,8 @@ fun MainContent(modifier: Modifier = Modifier, movieViewModel: AddMovieViewModel
             .fillMaxHeight()
             .padding(10.dp)
     ) {
+        val moviesState = movieViewModel.movies.collectAsState()
+        val coroutineScope = rememberCoroutineScope()
 
         Column(
             modifier = Modifier
@@ -240,14 +240,16 @@ fun MainContent(modifier: Modifier = Modifier, movieViewModel: AddMovieViewModel
                         UUID.randomUUID().toString().toInt(),
                         title,
                         year,
-                     //   genres,
                         director,
                         actors,
                         plot,
                         images,
                         rating.toFloatOrNull() ?: 0F
                     )
-                    movieViewModel.addMovie(movie)
+                    coroutineScope.launch {
+                        movieViewModel.addMovie(movie)
+                    }
+
                     navController.popBackStack()
                 }) { Text(text = stringResource(R.string.add))
             }
