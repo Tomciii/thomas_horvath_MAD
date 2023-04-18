@@ -15,17 +15,11 @@ interface MovieDao {
     @Delete
     suspend fun delete(movie: Movie)
 
-    @Query("SELECT * from task")
+    @Query("SELECT * from movie")
     fun readAll(): Flow<List<Movie>>
 
-    @Query("Select * from task where isDone = 1")
-    fun readAllChecked(): Flow<List<Movie>>
-
-    @Query("Select * from task where id=:taskId")
-    fun getTaskById(movieId: Int): Movie
-
-    @Query("DELETE from task")
+    @Query("DELETE from movie")
     fun deleteAll()
-
-    fun readFavoriteMovies()
+   @Query("Select * from movie where isFavorite = 1")
+    fun readFavoriteMovies(): Flow<List<Movie>>
 }

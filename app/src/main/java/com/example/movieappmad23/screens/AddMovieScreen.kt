@@ -19,17 +19,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.movieappmad23.R
+import com.example.movieappmad23.data.MovieDatabase
 import com.example.movieappmad23.models.*
+import com.example.movieappmad23.repository.MovieRepository
+import com.example.movieappmad23.utils.InjectorUtils
 import com.example.movieappmad23.viewModels.AddMovieViewModel
+import com.example.movieappmad23.viewModels.MovieViewModelFactory
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 import java.util.*
 
 @Composable
 fun AddMovieScreen(navController: NavController){
+
+    val db = MovieDatabase.getDatabase(LocalContext.current)
+    val repository = MovieRepository(movieDao = db.movieDao())
+    val factory = MovieViewModelFactory(repository)
+    val viewModel: AddMovieViewModel = viewModel(factory = InjectorUtils.provideMovieViewModelFactory(
+        LocalContext.current))
+    val moviesState = viewModel.movies.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+
     val scaffoldState = rememberScaffoldState()
-    val movieViewModel = AddMovieViewModel()
+    val movieViewModel = viewModel
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -224,10 +240,10 @@ fun MainContent(modifier: Modifier = Modifier, movieViewModel: AddMovieViewModel
                     val images =
                         listOf("https://images-na.ssl-images-amazon.com/images/M/MV5BNzM2MDk3MTcyMV5BMl5BanBnXkFtZTcwNjg0MTUzNA@@._V1_SX1777_CR0,0,1777,999_AL_.jpg")
                     val movie = Movie(
-                        UUID.randomUUID().toString(),
+                        UUID.randomUUID().toString().toInt(),
                         title,
                         year,
-                        genres,
+                     //   genres,
                         director,
                         actors,
                         plot,

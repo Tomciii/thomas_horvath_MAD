@@ -9,22 +9,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
-import com.example.movieappmad23.viewModels.AddMovieViewModel
 import com.example.movieappmad23.widgets.HorizontalScrollableImageView
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 
 fun filterMovie(movieId: String): Movie {
-    return getMovies().filter { it.id == movieId}[0]
+    return getMovies().filter { it.id.toString() == movieId}[0]
 }
 @Composable
 fun DetailScreen(
     navController: NavController,
-    movieId:String?
+    movieId: String?
 ){
-    val movieViewModel = AddMovieViewModel()
+
     movieId?.let {
-        val movie = filterMovie(movieId = movieId)
+        val movie = filterMovie(movieId = movieId.toString())
 
         // needed for show/hide snackbar
         val scaffoldState = rememberScaffoldState() // this contains the `SnackbarHostState`

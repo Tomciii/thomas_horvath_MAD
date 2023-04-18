@@ -1,17 +1,31 @@
 package com.example.movieappmad23.viewModels
 
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.movieappmad23.models.ListItemSelectable
 import com.example.movieappmad23.models.Movie
-import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.repository.MovieRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class AddMovieViewModel : ViewModel() {
-    private val _movieList = getMovies().toMutableStateList()
-    val movies: List<Movie>
-        get() = _movieList.toList()
+class AddMovieViewModel(private val repository: MovieRepository) : ViewModel() {
+
+    private val _movieList = MutableStateFlow(listOf<Movie>())
+    val movies: StateFlow<List<Movie>> = _movieList.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            repository.getMovies().collect{ taskList ->
+                if(!taskList.isNullOrEmpty()){
+                    _movieList.value = taskList
+                }
+            }
+        }
+    }
 
     private var _titleError = MutableLiveData(true)
     var titleError: LiveData<Boolean>
@@ -135,8 +149,11 @@ class AddMovieViewModel : ViewModel() {
     private fun updateAddButtonState() {
         _isAddButtonEnabled.value = !(titleError.value == true || yearError.value == true || directorError.value == true || actorsError.value == true || ratingError.value == true)
     }
-
     fun addMovie(movie: Movie){
-        _movieList.add(movie)
+
+    }
+
+    suspend fun addMovie(movie: Movie, repository: MovieRepository){
+        repository.add(movie)
     }
 }

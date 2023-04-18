@@ -8,14 +8,12 @@ import androidx.room.TypeConverters
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.utils.CustomConverters
 
-
-/*
 @Database(
     entities = [Movie::class],
     version = 1,
     exportSchema = false
 )
-*/
+
 @TypeConverters(CustomConverters::class)
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
@@ -24,7 +22,7 @@ abstract class MovieDatabase : RoomDatabase() {
         @Volatile
         private var Instance: MovieDatabase? = null
 
-        fun getDatabse(context: Context): MovieDatabase {
+        fun getDatabase(context: Context): MovieDatabase {
             return Instance?: synchronized(this){
                 Room.databaseBuilder(context, MovieDatabase::class.java, "movie_db")
                     .fallbackToDestructiveMigration()

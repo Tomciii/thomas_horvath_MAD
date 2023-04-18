@@ -41,7 +41,7 @@ import com.example.movieappmad23.ui.theme.Shapes
 fun MovieRow(
     movie: Movie = getMovies()[0],
     modifier: Modifier = Modifier,
-    onItemClick: (String) -> Unit = {}
+    onItemClick: (Int) -> Unit = {}
 ) {
     Card(modifier = modifier
         .clickable {
@@ -83,7 +83,7 @@ fun MovieImage(imageUrl: String) {
 }
 
 @Composable
-fun FavoriteIcon(isFavorite:Boolean, id:String) {
+fun FavoriteIcon(isFavorite:Boolean, id:Int) {
 
     var favorited by remember {
         mutableStateOf(isFavorite)
@@ -157,7 +157,6 @@ fun MovieDetails(modifier: Modifier = Modifier, movie: Movie) {
         Column (modifier = modifier) {
             Text(text = "Director: ${movie.director}", style = MaterialTheme.typography.caption)
             Text(text = "Released: ${movie.year}", style = MaterialTheme.typography.caption)
-            Text(text = "Genre: ${movie.genre}", style = MaterialTheme.typography.caption)
             Text(text = "Actors: ${movie.actors}", style = MaterialTheme.typography.caption)
             Text(text = "Rating: ${movie.rating}", style = MaterialTheme.typography.caption)
 

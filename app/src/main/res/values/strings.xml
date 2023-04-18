@@ -16,5 +16,6 @@
     <string name="plot_required">Plot is required</string>
     <string name="actors_required">Actor is required</string>
     <string name="director_required">Director is required</string>
+    <string name="database_name">movie_db</string>
     <string name="add">Add</string>
 </resources>

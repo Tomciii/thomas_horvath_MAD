@@ -20,12 +20,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
 import com.example.movieappmad23.viewModels.AddMovieViewModel
+import com.example.movieappmad23.viewModels.HomeViewModel
 import com.example.movieappmad23.widgets.HomeTopAppBar
 import com.example.movieappmad23.widgets.MovieRow
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()){
-    val movieViewModel = AddMovieViewModel()
+
     Scaffold(topBar = {
         HomeTopAppBar(
             title = "Home",
@@ -49,7 +50,7 @@ fun HomeScreen(navController: NavController = rememberNavController()){
             }
         )
     }) { padding ->
-        MainContent(modifier = Modifier.padding(padding), navController, movieViewModel)
+        MainContent(modifier = Modifier.padding(padding), navController, HomeViewModel())
     }
 }
 
@@ -57,7 +58,7 @@ fun HomeScreen(navController: NavController = rememberNavController()){
 fun MainContent(
     modifier: Modifier,
     navController: NavController,
-    movieViewModel: AddMovieViewModel
+    movieViewModel: HomeViewModel
 ) {
     val moviesState = remember { mutableStateOf(movieViewModel.movies) }
     val movies = getMovies()

@@ -18,7 +18,7 @@ import kotlin.streams.toList
 
 @Composable
 fun FavoriteScreen(navController: NavController){
-    val movieViewModel = AddMovieViewModel()
+
     Scaffold(topBar = {
         SimpleTopAppBar(arrowBackClicked = { navController.popBackStack() }) {
             Text(text = "My Favorite Movies")

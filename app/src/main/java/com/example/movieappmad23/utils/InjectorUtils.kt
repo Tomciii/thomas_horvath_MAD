@@ -6,12 +6,12 @@ import com.example.movieappmad23.repository.MovieRepository
 import com.example.movieappmad23.viewModels.MovieViewModelFactory
 
 object InjectorUtils {
-    private fun getTaskRepository(context: Context): MovieRepository{
-        return MovieRepository(MovieDatabase.getDatabse(context).movieDao())
+    private fun getMovieRepository(context: Context): MovieRepository{
+        return MovieRepository(MovieDatabase.getDatabase(context).movieDao())
     }
 
-    fun provideTaskViewModelFactory(context: Context): MovieViewModelFactory {
-        val repository = getTaskRepository(context)
+    fun provideMovieViewModelFactory(context: Context): MovieViewModelFactory {
+        val repository = getMovieRepository(context)
         return MovieViewModelFactory(repository)
     }
 }
