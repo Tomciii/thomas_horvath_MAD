@@ -66,7 +66,7 @@ fun MainContent(
     movieViewModel: HomeViewModel
 ) {
     val moviesState = remember { mutableStateOf(movieViewModel.movies) }
-    val movies = getMovies()
+    val movies = movieViewModel.movies
 
     MovieList(
         modifier = modifier,

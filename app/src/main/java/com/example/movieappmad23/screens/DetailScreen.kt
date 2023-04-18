@@ -3,6 +3,7 @@ package com.example.movieappmad23.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +29,10 @@ fun DetailScreen(
     val viewModel: DetailViewModel = viewModel(factory = InjectorUtils.provideDetailViewModelFactory(
         LocalContext.current))
 
+    val coroutineScope = rememberCoroutineScope()
+
     movieId?.let {
+
         val movie = filterMovie(movieId = movieId.toString())
 
         // needed for show/hide snackbar

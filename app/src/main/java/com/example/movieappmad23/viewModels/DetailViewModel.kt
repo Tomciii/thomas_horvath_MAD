@@ -11,7 +11,7 @@ class DetailViewModel(private val repository: MovieRepository) : ViewModel() {
     val movies: List<Movie>
         get() = _movieList
 
-    fun getMovieById(id: Int){
-        repository.getMovieById(id)
+    fun getMovieById(id: Int):Movie{
+        return repository.getMovieById(id)
     }
 }

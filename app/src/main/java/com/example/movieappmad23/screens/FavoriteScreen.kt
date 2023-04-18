@@ -12,17 +12,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.movieappmad23.models.Movie
-import com.example.movieappmad23.models.getMovies
 import com.example.movieappmad23.utils.InjectorUtils
 import com.example.movieappmad23.viewModels.FavoriteViewModel
 import com.example.movieappmad23.widgets.MovieRow
 import com.example.movieappmad23.widgets.SimpleTopAppBar
-import kotlin.streams.toList
 
 @Composable
 fun FavoriteScreen(navController: NavController){
 
-    val viewModel: FavoriteViewModel = viewModel(factory = InjectorUtils.provideDetailViewModelFactory(
+    val viewModel: FavoriteViewModel = viewModel(factory = InjectorUtils.provideFavoriteViewModelFactory(
         LocalContext.current))
 
     Scaffold(topBar = {
@@ -30,10 +28,7 @@ fun FavoriteScreen(navController: NavController){
             Text(text = "My Favorite Movies")
         }
     }){ padding ->
-        val movieList: List<Movie> = getMovies()
-            .stream()
-            .filter{ it.isFavorite }
-            .toList()
+        val movieList: List<Movie> = viewModel.favorites
 
         Column(modifier = Modifier.padding(padding)) {
             LazyColumn {
