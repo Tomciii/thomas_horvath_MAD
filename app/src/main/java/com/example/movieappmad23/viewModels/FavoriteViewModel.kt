@@ -4,8 +4,9 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.repository.MovieRepository
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteViewModel(private val repository: MovieRepository) : ViewModel() {
 
     private val _favorites = getMovies().filter { x -> x.isFavorite }.toMutableStateList()
     val favorites: List<Movie>

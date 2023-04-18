@@ -28,24 +28,21 @@ import com.example.movieappmad23.models.*
 import com.example.movieappmad23.repository.MovieRepository
 import com.example.movieappmad23.utils.InjectorUtils
 import com.example.movieappmad23.viewModels.AddMovieViewModel
-import com.example.movieappmad23.viewModels.MovieViewModelFactory
+import com.example.movieappmad23.viewModels.factories.AddMovieViewModelFactory
 import com.example.movieappmad23.widgets.SimpleTopAppBar
 import java.util.*
 
 @Composable
 fun AddMovieScreen(navController: NavController){
 
-    val db = MovieDatabase.getDatabase(LocalContext.current)
-    val repository = MovieRepository(movieDao = db.movieDao())
-    val factory = MovieViewModelFactory(repository)
-    val viewModel: AddMovieViewModel = viewModel(factory = InjectorUtils.provideMovieViewModelFactory(
+    val viewModel: AddMovieViewModel = viewModel(factory = InjectorUtils.provideAddMovieViewModelFactory(
         LocalContext.current))
+
     val moviesState = viewModel.movies.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
-
     val scaffoldState = rememberScaffoldState()
-    val movieViewModel = viewModel
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -54,7 +51,7 @@ fun AddMovieScreen(navController: NavController){
             }
         },
     ) { padding ->
-        MainContent(Modifier.padding(padding), movieViewModel = movieViewModel, navController)
+        MainContent(Modifier.padding(padding), movieViewModel = viewModel, navController)
     }
 }
 

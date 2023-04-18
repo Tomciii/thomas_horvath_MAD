@@ -14,18 +14,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.movieappmad23.data.MovieDatabase
 import com.example.movieappmad23.models.Movie
 import com.example.movieappmad23.models.getMovies
+import com.example.movieappmad23.repository.MovieRepository
+import com.example.movieappmad23.utils.InjectorUtils
 import com.example.movieappmad23.viewModels.AddMovieViewModel
 import com.example.movieappmad23.viewModels.HomeViewModel
+import com.example.movieappmad23.viewModels.factories.AddMovieViewModelFactory
+import com.example.movieappmad23.viewModels.factories.HomeViewModelFactory
 import com.example.movieappmad23.widgets.HomeTopAppBar
 import com.example.movieappmad23.widgets.MovieRow
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()){
+
+    val viewModel: HomeViewModel = viewModel(factory = InjectorUtils.provideHomeViewModelFactory(
+        LocalContext.current))
 
     Scaffold(topBar = {
         HomeTopAppBar(
@@ -50,7 +60,7 @@ fun HomeScreen(navController: NavController = rememberNavController()){
             }
         )
     }) { padding ->
-        MainContent(modifier = Modifier.padding(padding), navController, HomeViewModel())
+        MainContent(modifier = Modifier.padding(padding), navController, viewModel)
     }
 }
 
